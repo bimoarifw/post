@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post! - bimoarifw</title>
+    <meta name="description" content="Temukan cara aman untuk melampiaskan kekesalan dan keluh kesah Anda melalui aplikasi kami. Bagikan perasaan tanpa batasan.">
+    <meta name="keywords" content="aplikasi pelampiasan kekesalan, melampiaskan perasaan, aplikasi keluh kesah">
+    <meta name="author" content="bimoarifw">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="header">Post!</h1>
+        <form method="POST">
+            <input type="text" name="username" id="username" placeholder="Username" style="display: block;">
+            <textarea name="content" placeholder="Type here" required></textarea>
+            <div style="display: flex; align-items: center;">
+                <button class="post-button" type="submit">Post</button>
+                <input style="margin-left: 5px;" type="checkbox" name="anonymous" id="anonymous"
+                    onclick="toggleUsername()">
+                <label for="anonymous">Anonymous</label>
+            </div>
+        </form>
+        <div class="switcher">
+            <button id="latest-button" onclick="showLatest()" class="bookmarkBtn">
+                <span class="IconContainer">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"
+                        style="fill: rgba(0, 0, 0, 1);">
+                        <path
+                            d="M13 3h4v2h-4zM3 8h4v2H3zm0 8h4v2H3zm-1-4h3.99v2H2zm19.707-5.293-1.414-1.414L18.586 7A6.937 6.937 0 0 0 15 6c-3.859 0-7 3.141-7 7s3.141 7 7 7 7-3.141 7-7a6.968 6.968 0 0 0-1.855-4.73l1.562-1.563zM16 14h-2V8.958h2V14z">
+                        </path>
+                    </svg>
+                </span>
+                <p class="text">Latest</p>
+            </button>
+            <button id="latest-button" onclick="showTop()" class="bookmarkBtn">
+                <span class="IconContainer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        style="fill: rgba(0, 0, 0, 1);">
+                        <path d="M2 2h20v2H2z"></path>
+                        <rect x="5" y="6" width="6" height="16" rx="1"></rect>
+                        <rect x="13" y="6" width="6" height="12" rx="1"></rect>
+                    </svg>
+                </span>
+                <p class="text">Top</p>
+            </button>
+        </div>
+        <!-- Top Post -->
+        <div class="top-liked-posts">
+            <h2>Top Post</h2>
+            {% for post in top_liked_posts %}
+            <div class="post" style="background-color: {{ loop.cycle('#333', '#222') }}">
+                <p class="username">{{ post.username }}</p>
+                <p class="date">{{ current_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                <p class="content">{{ post.content }}</p>
+                <div class="likes">
+                    <span class="like-count">{{ post.like_count }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Latest Posts -->
+        <div class="latest-posts">
+            <h2>Latest Posts</h2>
+            <div class="posts">
+                {% for post in posts %}
+                <div class="post" style="background-color: {{ loop.cycle('#333', '#222') }}">
+                    <p class="username">{{ post.username }}</p>
+                    <p class="date">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                    <p class="content">{{ post.content }}</p>
+                    <div class="likes">
+                        <div class="likesborder">
+                            <a href="{{ url_for('like', post_id=post.id, page=page) }}" class="like"><i
+                                    class='bx bx-like'></i></a>
+                        </div>
+                        <span style="margin-right: 10px;" class="like-count">{{ post.like_count }}</span>
+                        <div class="likesborder">
+                            <a href="{{ url_for('unlike', post_id=post.id, page=page) }}" class="unlike"><i
+                                    class='bx bx-dislike'></i></a>
+                        </div>
+                        <span style="margin-right: 10px;" class="unlike-count">{{ post.unlike_count }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <ul class="pagination">
+            {% if page != 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('index', page=1) }}">First Page</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('index', page=page - 1) }}"><i
+                        class='bx bx-skip-previous-circle'></i></a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+            </li>
+            {% if page != total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('index', page=page + 1) }}"><i
+                        class='bx bx-skip-next-circle'></i></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('index', page=total_pages) }}">Last Page</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <script>
+        function toggleUsername() {
+            const usernameInput = document.getElementById('username');
+            if (usernameInput) {
+                usernameInput.style.display = document.getElementById('anonymous').checked ? 'none' : 'block';
+            }
+        }
+        toggleUsername();
+        function showLatest() {
+            document.querySelector('.top-liked-posts').style.display = 'none';
+            document.querySelector('.latest-posts').style.display = 'block';
+            document.querySelector('.pagination').style.display = 'block';
+        }
+
+        function showTop() {
+            document.querySelector('.pagination').style.display = 'none';
+            document.querySelector('.latest-posts').style.display = 'none';
+            document.querySelector('.top-liked-posts').style.display = 'block';
+        }
+
+        showLatest();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    margin-top:10px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #121212;
+    color: #fff;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    /* overflow:scroll; */
+}
+
+/* label {
+    display: block;
+    margin-bottom: 5px;
+} */
+
+#anonymous {
+    margin-right: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+/* Post Styling */
+.post {
+    background-color: #222;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.username {
+    font-weight: bold;
+}
+
+.date {
+    font-size: 12px;
+    color: #777;
+}
+
+.likes {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.like,
+.unlike {
+    text-decoration: none;
+    color: #1DA1F2;
+    cursor: pointer;
+}
+
+.like:hover,
+.unlike:hover {
+    text-decoration: underline;
+}
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+    font-size: 15px;
+    color: #1DA1F2;
+    border: 1px solid #1DA1F2;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.pagination i {
+    margin-top:-10px;
+}
+.pagination a:hover {
+    background-color: #1DA1F2;
+    color: #fff;
+}
+.likesborder {
+    border-radius: 50%;
+    height:25px;
+    width:25px;
+    text-align:center;
+    line-height:25px;
+    margin-right:10px;
+}
+.likesborder i{
+    line-height:20px;
+    margin: 0 auto;
+}
+.bx {
+    font-size: 20px;
+}
+
+
+.bookmarkBtn {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.349);
+    background-color: rgb(12, 12, 12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+}
+
+.IconContainer {
+    margin-top:0px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(to bottom, rgb(255, 136, 255),rgb(172, 70, 255));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+    transition-duration: .3s;
+  }
+.IconContainer svg{
+margin-top:0;
+}
+
+.switcher {
+    display:flex;
+    justify-content:center;
+    align-item:center;
+    gap:10px;
+}
+
+  .icon {
+    border-radius: 1px;
+  }
+  
+  .text {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 1;
+    transition-duration: .3s;
+    font-size: 1.04em;
+    margin-top:0px
+  }
+  
+  .bookmarkBtn:hover .IconContainer {
+    width: 90px;
+    border-radius: 10px;
+    transition-duration: .3s;
+  }
+  
+  .bookmarkBtn:hover .text {
+    transform: translate(10px);
+    width: 0;
+    font-size: 0;
+    transition-duration: .3s;
+  }
+  
+  .bookmarkBtn:active {
+    transform: scale(0.95);
+    transition-duration: .3s;
+  }
+
+  .post-button{
+    display: inline-block;
+    outline: 0;
+    text-align: center;
+    cursor: pointer;
+    height: 34px;
+    padding: 0 13px;
+    color: #fff;
+    vertical-align: top;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    transition: all .3s ease;
+    background: #cc4d29;
+    border-color: #cc4d29;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 16px;
+    font-size: 11px;
+  }
+  .post-button:hover {
+    background: #e4461b;
+    border-color: #e4461b;
+}
+.header {
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
